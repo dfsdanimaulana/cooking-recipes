@@ -14,7 +14,7 @@ export default function Create() {
     const ingredientInput = useRef(null)
     const history = useHistory()
     
-    const {postData, data, error} = useFetch('http://localhost:3000/recipes','POST')
+    const { postData, data } = useFetch('http://localhost:3000/recipes','POST')
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -34,12 +34,13 @@ export default function Create() {
         setnewIngredient('')
         ingredientInput.current.focus()
     }
+    
     // redirect user when get data response
     useEffect(()=> {
         if(data){
             history.push('/')
         }
-    },[data])
+    },[data, history])
     
     return (
         <div className='create'>

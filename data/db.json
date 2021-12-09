@@ -70,6 +70,18 @@
         "dff"
       ],
       "id": "xIBZdDQ"
+    },
+    {
+      "title": "spaghetti",
+      "method": "masak sampai matang",
+      "cookingTime": "1000 minutes",
+      "ingredients": [
+        "bawang",
+        "telur",
+        "minyak",
+        "sabun"
+      ],
+      "id": "r_ldEY_"
     }
   ]
 }
