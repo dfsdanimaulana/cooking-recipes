@@ -82,6 +82,18 @@
         "sabun"
       ],
       "id": "r_ldEY_"
+    },
+    {
+      "title": "hamburger",
+      "method": "put them all together",
+      "cookingTime": "5 minutes",
+      "ingredients": [
+        "bread",
+        "salad",
+        "steak",
+        "mayonnaise"
+      ],
+      "id": "3K1ytpO"
     }
   ]
 }
