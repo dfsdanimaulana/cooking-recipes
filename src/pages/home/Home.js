@@ -13,29 +13,32 @@ export default function Home() {
     const [data, setData] = useState(null)
     const [isPending, setIsPending] = useState(false)
     const [error, setError] = useState(null)
-    
-    useEffect(()=> {
+
+    useEffect(() => {
         setIsPending(true)
-        
-        projectFirestore.collection('recipes').get()
-            .then((snapshot)=> {
-                if(snapshot.empty){
+        // realtime database with onSnapshot
+        const unsub = projectFirestore.collection('recipes').onSnapshot(
+            (snapshot) => {
+                if (snapshot.empty) {
                     setError('data not found')
                     setIsPending(false)
                 } else {
                     let results = []
-                    snapshot.docs.forEach((doc)=>{
-                        results.push({ id:doc.id, ...doc.data()})
+                    snapshot.docs.forEach((doc) => {
+                        results.push({ id: doc.id, ...doc.data() })
                     })
                     setData(results)
                     setIsPending(false)
                 }
-            })
-            .catch((err)=> {
-                setError(err.message)
+            },
+            (error) => {
+                setError(error.message)
                 setIsPending(false)
-            })
-    },[])
+            },
+        )
+
+        return () => unsub()
+    }, [])
     return (
         <div>
             {error && <p className='error'>{error}</p>}

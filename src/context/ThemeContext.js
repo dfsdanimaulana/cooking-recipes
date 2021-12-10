@@ -5,35 +5,34 @@ export const ThemeContext = createContext()
 const themeReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE_COLOR':
-            return {...state, color: action.payload }
-        
+            return { ...state, color: action.payload }
+
         case 'CHANGE_MODE':
-            return {...state, mode: action.payload}
+            return { ...state, mode: action.payload }
         default:
             return state
     }
 }
 
-export function ThemeProvider ({ children }) {
-    
+export function ThemeProvider({ children }) {
     const [state, dispatch] = useReducer(themeReducer, {
         color: '#e41f53',
-        mode: 'dark'
+        mode: 'dark',
     })
-    
+
     // change navbar theme color
     const changeColor = (color) => {
-        dispatch({ type: 'CHANGE_COLOR', payload: color})
+        dispatch({ type: 'CHANGE_COLOR', payload: color })
     }
-    
+
     // change dark light theme color
     const changeMode = (mode) => {
-        dispatch({ type: 'CHANGE_MODE', payload: mode})
+        dispatch({ type: 'CHANGE_MODE', payload: mode })
     }
-    
+
     return (
         <ThemeContext.Provider value={{ ...state, changeColor, changeMode }}>
-            { children }
+            {children}
         </ThemeContext.Provider>
     )
 }

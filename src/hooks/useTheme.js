@@ -3,10 +3,10 @@ import { ThemeContext } from '../context/ThemeContext'
 
 export const useTheme = () => {
     const context = useContext(ThemeContext)
-    
-    if(context === undefined) {
+
+    if (context === undefined) {
         throw new Error('useTheme() must be inside a ThemeProvider')
     }
-    
+
     return context
 }

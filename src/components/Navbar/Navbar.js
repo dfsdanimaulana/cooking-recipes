@@ -10,10 +10,9 @@ import './Navbar.css'
 import Searchbar from '../Searchbar/Searchbar'
 
 export default function Navbar() {
-    
     // access global context
     const { color } = useTheme()
-    
+
     return (
         <div className='navbar' style={{ background: color }}>
             <nav>

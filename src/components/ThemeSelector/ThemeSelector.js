@@ -7,32 +7,34 @@ import themeMode from '../../assets/themeMode.svg'
 import './ThemeSelector.css'
 
 // color options
-const themeColors = ['#73f65c','#ee3df1','#ff0080']
+const themeColors = ['#73f65c', '#ee3df1', '#ff0080']
 
-export default function ThemeSelector () {
+export default function ThemeSelector() {
     const { changeColor, changeMode, mode } = useTheme()
-    
+
     const toggleMode = () => {
         changeMode(mode === 'dark' ? 'light' : 'dark')
     }
-    console.log(mode)
-    
+
     return (
-        <div className="theme-selector">
-            <div className="toggle-mode">
+        <div className='theme-selector'>
+            <div className='toggle-mode'>
                 <img
-                  src={themeMode}
-                  alt="mode"
-                  onClick={toggleMode}
-                  style={{ filter: mode === 'dark' ? 'invert(100%)':'invert(20%)'}}
+                    src={themeMode}
+                    alt='mode'
+                    onClick={toggleMode}
+                    style={{
+                        filter:
+                            mode === 'dark' ? 'invert(100%)' : 'invert(20%)',
+                    }}
                 />
             </div>
-            <div className="theme-buttons">
-                {themeColors.map((color)=>(
-                    <div 
-                      key={color}
-                      onClick={()=> changeColor(color)}
-                      style={{background: color}}
+            <div className='theme-buttons'>
+                {themeColors.map((color) => (
+                    <div
+                        key={color}
+                        onClick={() => changeColor(color)}
+                        style={{ background: color }}
                     />
                 ))}
             </div>

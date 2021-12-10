@@ -1,6 +1,8 @@
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useFetch } from '../../hooks/useFetch'
+// import { useFetch } from '../../hooks/useFetch'
+
+import { projectFirestore } from '../../firebase/config'
 
 // styles
 import './Create.css'
@@ -13,12 +15,24 @@ export default function Create() {
     const [ingredients, setIngredients] = useState([])
     const ingredientInput = useRef(null)
     const history = useHistory()
-    
-    const { postData, data } = useFetch('http://localhost:3000/recipes','POST')
 
-    const handleSubmit = (e) => {
+    // const { postData, data } = useFetch('http://localhost:3000/recipes','POST')
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        postData({ title, method, cookingTime: cookingTime + ' minutes', ingredients })
+        const doc = {
+            title,
+            method,
+            cookingTime: cookingTime + ' minutes',
+            ingredients,
+        }
+
+        try {
+            await projectFirestore.collection('recipes').add(doc)
+            history.push('/')
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleAdd = (e) => {
@@ -34,14 +48,14 @@ export default function Create() {
         setnewIngredient('')
         ingredientInput.current.focus()
     }
-    
+
     // redirect user when get data response
-    useEffect(()=> {
-        if(data){
-            history.push('/')
-        }
-    },[data, history])
-    
+    // useEffect(() => {
+    //     if (data) {
+    //         history.push('/')
+    //     }
+    // }, [data, history])
+
     return (
         <div className='create'>
             <h2 className='page-title'>Add New Recipe</h2>
@@ -70,7 +84,12 @@ export default function Create() {
                         </button>
                     </div>
                 </label>
-                <p>Curren ingredients : {ingredients.map((i)=> <em key={i}>{i}, </em> )}</p>
+                <p>
+                    Curren ingredients :{' '}
+                    {ingredients.map((i) => (
+                        <em key={i}>{i}, </em>
+                    ))}
+                </p>
 
                 <label>
                     <span>Recipe method :</span>
