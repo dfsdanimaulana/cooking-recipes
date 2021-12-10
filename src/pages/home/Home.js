@@ -32,7 +32,7 @@ export default function Home() {
                 }
             })
             .catch((err)=> {
-                setError(err)
+                setError(err.message)
                 setIsPending(false)
             })
     },[])
